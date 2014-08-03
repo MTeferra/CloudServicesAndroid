@@ -19,6 +19,8 @@ package org.magnum.dataup;
 
 import javax.servlet.MultipartConfigElement;
 
+import org.magnum.dataup.model.InMemoryVideoRepository;
+import org.magnum.dataup.model.VideoRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.MultiPartConfigFactory;
@@ -62,4 +64,12 @@ public class Application {
 		return factory.createMultipartConfig();
 	}
 
+	// Tell Spring which implementation of the VideoRepository
+	// that it should use. Spring is going to automatically inject whatever
+	// we return into the VideoSvc's videos member variable that is annotated
+	// with @Autowired.
+	@Bean
+	public VideoRepository videoRepository(){
+		return new InMemoryVideoRepository();
+	}
 }
